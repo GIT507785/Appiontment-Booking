@@ -1,0 +1,21 @@
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import MyProfile from "./pages/MyProfile";
+import MyAppiontment from "./pages/MyAppiontment";
+import Doctors from "./pages/Doctors";
+import Appointment from "./pages/Appointment";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { ToastContainer } from "react-toastify";
+import { useState } from "react";
+import SignUp from "./pages/SignUp";
+export const API_URI = import.meta.env.API_VITE_URL;
+const App = () => {
+    const [token, setToken] = useState(localStorage.getItem('token'));
+    return (_jsxs("div", { className: "mx-4 sm:mx-[10%]", children: [_jsx(ToastContainer, {}), _jsx(Navbar, { token: token, setToken: setToken }), _jsxs(Routes, { children: [!token && (_jsx(_Fragment, { children: _jsx(Route, { path: "/login", element: _jsx(Login, {}) }) })), _jsx(Route, { path: "/", element: _jsx(Home, {}) }), _jsx(Route, { path: "/doctors", element: _jsx(Doctors, {}) }), _jsx(Route, { path: "/doctors/:speciality", element: _jsx(Doctors, {}) }), _jsx(Route, { path: "/contact", element: _jsx(Contact, {}) }), _jsx(Route, { path: "/about", element: _jsx(About, {}) }), _jsx(Route, { path: "/login", element: _jsx(Login, {}) }), _jsx(Route, { path: "/my-profile", element: _jsx(MyProfile, {}) }), _jsx(Route, { path: "/my-appiontments", element: _jsx(MyAppiontment, {}) }), _jsx(Route, { path: "/appiontment/:docId", element: _jsx(Appointment, {}) }), _jsx(Route, { path: "/sign-up", element: _jsx(SignUp, {}) })] }), _jsx(Footer, {})] }));
+};
+export default App;

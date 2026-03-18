@@ -3,6 +3,7 @@ import { doctors } from "../assets/assets/assets"
 import { Link, useParams } from "react-router-dom"
 import { FcAbout } from "react-icons/fc"
 import RelatedDoctors from "../components/RelatedDoctors"
+import { fetchSingleDoctor } from "../api/doctors"
 
 interface DocInformation {
   _id: string
@@ -23,7 +24,7 @@ interface DocInformation {
 
   interface TimeSlots {
     datetime: Date;
-    time: string;
+    time: any;
 }
 
 const Appointment = () => {
@@ -39,9 +40,10 @@ const Appointment = () => {
 
 
   const fetchDoctorData = async () => {
+    console.log("hello 1")
     if (!docId) return
-    const doctor = doctors.find((doc) => doc._id === docId)
-    setDocIfo(doctor || null)
+    const doctorData = await fetchSingleDoctor(docId)
+    setDocIfo(doctorData.doctor)
   }
   useEffect(() => {
     fetchDoctorData()
@@ -204,8 +206,8 @@ const Appointment = () => {
     {docSlots.length > 0 &&
       docSlots[slotIndex]?.map((item, index) => (
 
-        <p onClick={()=>setTime(item.time)}
-          key={index}
+        <p onClick={()=>setTime(item.time)} 
+          key={index} 
           className="text-sm flex-shrink-0 px-5 py-2 
                      border border-gray-300 
                      rounded-full cursor-pointer 

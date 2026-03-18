@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import assets from '../assets/assets/assets'
 
 const Header = () => {
@@ -11,9 +12,9 @@ const Header = () => {
                     <p className='text-white text-light sm:text-sm text-xs'>Simply browse through our extensive list of trusted doctors,
                         schedule your appointment hassle-free.</p>
                 </div>
-                        <a href="speciality"  className='mt-4 bg-white text-gray-500 flex items-center justify-center gap-4 rounded-full px-4 py-2 w-60 '>
+                        <Link to='/doctors'   className='mt-4 bg-white text-gray-500 flex items-center justify-center gap-4 rounded-full px-4 py-2 w-60 '>
                             Book Appointment <img src={assets.arrow_icon} alt="" className='size-4'/>
-                        </a>
+                        </Link>
             </div>
 
             {/* right side */}

@@ -1,15 +1,23 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/assets/logo.svg";
-import { useState } from "react";
+import React, { useState } from "react";
 import profile_pic from "../assets/assets/profile_pic.png";
 import { BiDownArrow } from "react-icons/bi";
 import { MenuIcon, X } from "lucide-react";
 
-const Navbar = () => {
+
+interface props {
+  token:string | null
+  setToken:React.Dispatch<React.SetStateAction<string | null>>
+}
+
+const Navbar = ({token , setToken}:props) => {
   const navigate = useNavigate();
 
   const [menu, setMenu] = useState<boolean>(false);
-  const [token, setToken] = useState<boolean>(true);
+  // const [token, setToken] = useState<boolean>(true);
+
+   
 
   return (
     <nav className="border-b border-gray-300">
@@ -68,7 +76,7 @@ const Navbar = () => {
                     My Appointments
                   </p>
                   <p
-                    onClick={() => setToken(false)}
+                    onClick={() => {localStorage.removeItem('token')  , navigate('/login')}}
                     className="hover:text-black cursor-pointer"
                   >
                     Logout
@@ -84,6 +92,7 @@ const Navbar = () => {
               Create account
             </button>
           )}
+
 
           {/* Mobile Menu Icon */}
           <button

@@ -1,16 +1,54 @@
 import { Link, useNavigate } from "react-router-dom"
-import { doctors } from "../assets/assets/assets"
+// import { doctors } from "../assets/assets/assets"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { toast } from "react-toastify"
+
+
+interface doctor {
+  name:string
+ speciality:string
+ image:string
+ _id:string 
+}
 
 const TopDoctors = () => {
 
    const navigate = useNavigate()
+   
+   const [doctors , setDoctors] = useState<doctor[]>([])
     
+   const fetchDoctors = async () =>{
+   
+     try {
+      
+       const {data} = await axios.get('http://localhost:3000/api/doctors/doctors-list')
+
+       if(data.success){
+        setDoctors(data.doctors)
+       } else {
+        toast.error(data.message)
+       }
+
+     } catch (error) {
+       console.log(error)
+       toast.error('Error to fetch doctors')      
+     }
+    
+   }
+
+   useEffect(()=>{
+    fetchDoctors()
+   },[])
+
+
+
   return (
     <div className="mt-6  flex flex-col items-center justify-center ">
            <h1 className="text-3xl md:text-4xl   font-medium">Top Doctors to Book</h1>
            <p className="text-md text-gray-500  py-2">Simply Browse through our extensive list of trusted doctors.</p>
            <div className="grid  sm:grid-cols-[1fr_1fr_1fr_1fr_1fr]  grid-cols-1  gap-5  mt-10">
-            {doctors.slice(0,10).map((item , index)=>{
+            {doctors.map((item , index)=>{
                 return(
                     <div key={index} onClick={()=>navigate(`/appiontment/${item._id}`)} className="border border-blue-300 rounded   cursor-pointer  hover:translate-y-[-10px]  transition-all duration-300">  
                          <img src={item.image} alt="" className="bg-blue-100 rounded-t "/>      
